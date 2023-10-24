@@ -1,9 +1,6 @@
 function [segmento_suavizado, fs] = extraer_segmento(archivo, duracion_segmento)
 [senal, fs] = audioread(archivo);
 
-% Obtener la duración de la señal de audio
-duracion_total = length(senal) / fs;
-
 % Calcular la cantidad de muestras necesarias para duracion_segmento (0.03
 % s)
 muestras_deseadas = round(duracion_segmento * fs);

@@ -3,11 +3,12 @@ function [S, w] = modelar_psd(a, G, N)
     w = linspace(0, pi, N);
     S = zeros(N, 1);
     
-    for j = 1 : N
+    for n = 1:N
         aux = 0;
-        for k = 1 : P
-            aux = aux + a(k) * exp(-k * w(j) * k);
+        for k = 1:P
+            aux = aux + a(k) * exp(-1i * w(n) * k);
         end
-        S(j) = (G/abs(1 - aux))^2;
+        S(n) = (G/abs(1 - aux))^2;
     end
+    S = S/max(S);
 end
