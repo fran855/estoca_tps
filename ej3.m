@@ -5,11 +5,11 @@ clc;
 % Para cada audio dividir la señal con ventanas de 30 ms de duración
 % suavizadas con una ventana de hamming, considerando un solapamiento del
 % 50% entre segmentos
-[audio, fs] = audioread('audios/audio_a.wav');
+[audio, fs] = audioread('audios/audio_e.wav');
 cantidad_muestras = length(audio);
 
 n = 1;
-P = 5;
+P = 50;
 coeficientes = [];
 ganancias = [];
 fin_de_audio = false;
@@ -56,12 +56,16 @@ for i = 1 : columnas
     % Superponer y sumar los segmentos
     inicio = nro_segmento*solapamiento + 1;
     fin = inicio + longitud_segmento - 1;
-    x(1:P) = audio(1:P);
+    
+    x(1:P) = audio(1+(i-1)*P:i*P);
+    
     % Recorre el tiempo n para la reconstrucción
     for n = P+1:N % Comenzar en 1
         sumatoria = 0;
         for k = 1:P
-            sumatoria = sumatoria + coeficientes(k, i) * x(n - k);
+            if (n-k) > 0
+                sumatoria = sumatoria + coeficientes(k, i) * x(n - k);
+            end
         end
         x(n) = sumatoria + ganancias(i) * u(n);
     end
@@ -73,8 +77,8 @@ end
 % Nombre del archivo de salida
 nombreArchivo = 'miAudio.wav';
 % Guardar el vector como archivo de audio
-reconstruccion_2 = reconstruccion/(10*rms(reconstruccion));
-audiowrite(nombreArchivo, reconstruccion_2, fs);
+reconstruccion2 = reconstruccion/(10*rms(reconstruccion));
+audiowrite(nombreArchivo, reconstruccion2, fs);
 
 figure(1);
 plot(audio);

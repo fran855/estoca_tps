@@ -1,6 +1,4 @@
-function [segmento_suavizado, fs] = extraer_segmento(archivo, duracion_segmento)
-[senal, fs] = audioread(archivo);
-
+function [segmento_suavizado, fs] = extraer_segmento(senal, fs, duracion_segmento)
 % Calcular la cantidad de muestras necesarias para duracion_segmento (0.03
 % s)
 muestras_deseadas = round(duracion_segmento * fs);
