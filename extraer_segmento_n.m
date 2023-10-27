@@ -1,6 +1,6 @@
-function [segmento_suavizado, fin_de_audio] = extraer_segmento_n(audio, fs, n)
+function [segmento_suavizado, fin_de_audio] = extraer_segmento_n(audio, fs, n, duracion_segmento)
     % N = 1 == primer segmento
-    muestrasSegmento = ceil(0.03 * fs);
+    muestrasSegmento = ceil(duracion_segmento * fs);
     fin_de_audio = false;
     
     if n == 1
