@@ -5,7 +5,7 @@ clc;
 % Para cada audio dividir la señal con ventanas de 30 ms de duración
 % suavizadas con una ventana de hamming, considerando un solapamiento del
 % 50% entre segmentos
-[audio, fs] = audioread('audios/audio_a.wav');
+[audio, fs] = audioread('audios/audio_sh.wav');
 cantidad_muestras = length(audio);
 
 n = 1;
@@ -80,7 +80,11 @@ nombreArchivo = 'pruebas/miAudio.wav';
 reconstruccion2 = reconstruccion/(10*rms(reconstruccion));
 audiowrite(nombreArchivo, reconstruccion2, fs);
 
-figure(1);
-plot(audio);
+z = figure(1);
+plot(audio/max(audio));
 hold on;
-plot(reconstruccion);
+plot(reconstruccion/max(reconstruccion));
+title('Original vs reconstrucción - audio SH');
+legend('Audio', 'Reconstrucción');
+grid on;
+saveas(z, 'informe/ej3/audioSH.png');

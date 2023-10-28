@@ -70,9 +70,13 @@ nombreArchivo = 'pruebas/miAudio.wav';
 reconstruccion2 = reconstruccion/(10*rms(reconstruccion));
 audiowrite(nombreArchivo, reconstruccion2, fs);
 
-figure(1);
-plot(audio/max(audio) + 1.5);
-title('Audio vs reconstrucción');
+t = linspace(0, length(audio)/fs, length(audio));
+z = figure(1);
+plot(t, audio/max(audio) + 1);
 hold on;
-plot(reconstruccion/max(reconstruccion));
+plot(t, reconstruccion/max(reconstruccion) - 1);
+title('Original vs reconstrucción - audio 04');
+grid on;
+xlabel('t [s]');
 legend('Audio', 'Reconstrucción');
+saveas(z, 'informe/ej4/audio04.png');
