@@ -20,7 +20,7 @@ X_hat = zeros(1,N);
 err = zeros(1,N);
 
 % Proceso de adaptación del filtro LMS
-m = 500;
+m = 1000;
 J = zeros(1,N); %Vector con la curva de aprendizaje
 err_matrix = zeros(m,N); 
 w_hist = zeros(N - M, M);
@@ -90,7 +90,10 @@ end
 
 figure(1);
 plot(E);
-title("Curva del error en 500 iteraciones");
+xlabel('$n$', 'Interpreter', 'latex');
+ylabel('$\hat{E}(n)$', 'Interpreter', 'latex');
+title("Curva del error de 1000 realizaciones");
+saveas(gcf, 'puntoa_graficoE.png');
 
 %Calculo y grafico de la curva de aprendizaje
 
@@ -100,19 +103,25 @@ end
 
 figure(2);
 plot(J);
-title("Curva de aprendizaje");
-
+xlabel('$n$', 'Interpreter', 'latex');
+ylabel('$\hat{J}(n)$', 'Interpreter', 'latex');
+title("Curva de aprendizaje de 1000 realizaciones");
+saveas(gcf, 'puntoa_graficoJ.png');
 
 %Calculo de los coeficientes estimados
 figure(3);
 
 for i = 1:M
-    plot(w_hist(:,i));
-    hold on; % Mantener el gráfico actual para agregar más curvas
+    plot(w_hist(:,i),'DisplayName', ['w', num2str(i - 1)]);
+    hold on;
 end
 
-hold off; % Liberar el gráfico
-title('Coeficientes estimados en 500 iteraciones');
+hold off;
+legend('show', 'FontSize', 14);
+xlabel('$n$', 'Interpreter', 'latex');
+ylabel('$\hat{w}_n$', 'Interpreter', 'latex');
+title('Coeficientes estimados de 1000 realizaciones');
+saveas(gcf, 'puntoa_coef.png');
 
 
 

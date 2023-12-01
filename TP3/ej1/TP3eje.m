@@ -23,7 +23,7 @@ err = zeros(1,N);
 m_aux = zeros(length(mu), N - M + 1);
 E_matrix = zeros(length(mu), N - M + 1);
 
-m = 500; %Cantidad de realizaciones
+m = 1000; %Cantidad de realizaciones
 l = 19500; %Indice a partir del cual consideramos el estacionario
 v_err = zeros(1, length(mu)); %Vector que almacena el E(inf) para cada mu
 
@@ -103,13 +103,20 @@ for i = 1:length(mu)
     plot(1:(N - M + 1), E_matrix(i, :), 'DisplayName', ['mu =', num2str(mu(i))],'Color', colores(i, :));
     hold on;
 end
+
+xlabel('$n$', 'Interpreter', 'latex');
+ylabel('$\hat{E}(n)$', 'Interpreter', 'latex');
 legend('show', 'FontSize', 14);
 hold off
+saveas(gcf, 'puntoE2.png');
 
 %Ploteo  E^(inf) vs mu
 
 figure(2);
 stem(mu,v_err);
+xlabel('$\mu$', 'Interpreter', 'latex');
+ylabel('$\hat{E}(\infty)$', 'Interpreter', 'latex');
+saveas(gcf, 'puntoE1.png');
 
 
 

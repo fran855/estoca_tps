@@ -20,9 +20,9 @@ X_hat = zeros(1,N);
 err = zeros(1,N);
 
 % Proceso de adaptación del filtro LMS
-m = 500;
+m = 1000;
 v_err = zeros(1,M);
-l = 19800; %Valor a partir del cual consideramos el estacionario
+l = 19500; %Valor a partir del cual consideramos el estacionario
 
 for k = 1: M 
     m_aux = zeros(m, N - k + 1);
@@ -91,5 +91,6 @@ end
 
 figure(1);
 stem(1:M, v_err);
-xlabel('M');
-ylabel('E(inf)');
+xlabel('$M$', 'Interpreter', 'latex');
+ylabel('$\hat{E}(\infty)$', 'Interpreter', 'latex');
+saveas(gcf, 'puntoD.png');
