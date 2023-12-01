@@ -1,10 +1,25 @@
-run ejb.m
-clear A B C i j media_ruido phi r varianza_ruido varianza_s
+clear all;
 
 % Parámetros
+f0 = 500;
+N = 2000;
 mu = [1e-3 2e-3 3e-3 4e-3 5e-3];
 M = 2;
 omega0 = 2 * pi * f0;
+fs = 44100;
+t = (0:N-1) / fs;
+
+varianza_ruido = 5e-4;
+
+r = sqrt(varianza_ruido) * randn(1, N + 5);
+s = zeros(1, N);
+for i = 1 : N
+    j = i + 5;
+    s(i) = r(j) + 0.9 * r(j - 1) + 0.5 * r(j - 2) + 0.45 * r(j - 3) + 0.35 * r(j - 4) + 0.25 * r(j - 5);
+end
+
+entrada = [sin(2*pi*f0*t); cos(2*pi*f0*t)];
+
 
 E = zeros(1, 5);
 
@@ -29,4 +44,9 @@ for m = 1 : 5
     E(m) = mean(E_aux(800:N));
 end
 
-stem(E)
+figure();
+stem(mu, E, 'LineWidth', 1)
+grid on;
+title('Promedio de las últimas 200 iteraciones de E');
+ylabel('E(\infty)');
+xlabel('Paso (\mu)');
