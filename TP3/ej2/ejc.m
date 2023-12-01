@@ -32,6 +32,7 @@ for m = 1 : 500
    
     E = E + abs(s - e).^2;
     J = J + abs(x_hat - g).^2;
+    m
 end
 E = E/500;
 J = J/500;

@@ -26,7 +26,7 @@ for m = 1 : 5
     end
    
     E_aux = abs(s - e).^2;
-    E(m) = E_aux(N);
+    E(m) = mean(E_aux(800:N));
 end
 
 stem(E)
